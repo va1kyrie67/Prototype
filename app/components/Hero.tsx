@@ -30,9 +30,9 @@ function AnimatedWords() {
             }}
           >
             {word === "What's" ? (
-              <span className="text-brand-700">{word}</span>
-            ) : word === "Possible." ? (
               <span className="text-gradient">{word}</span>
+            ) : word === "Possible." ? (
+              <span className="text-shimmer">{word}</span>
             ) : (
               word
             )}
@@ -59,28 +59,29 @@ function QuoteForm() {
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1], delay: 2.6 }}
-      className="bg-surface-muted rounded-card p-6 sm:p-8 shadow-card"
+      className="bg-surface-muted rounded-card p-7 sm:p-9 shadow-card"
     >
-      <h3 className="text-lg font-bold text-ink mb-1">Start with Confidence</h3>
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-bold text-ink">Start with Confidence</h3>
         <span className="text-xs font-medium text-ink-500">
           Step 1 of 4
         </span>
-        <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-          <div className="h-full w-1/4 bg-brand-700 rounded-full" />
-        </div>
+      </div>
+      <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden mb-5">
+        <div className="h-full w-1/4 bg-brand-700 rounded-full" />
       </div>
 
-      <p className="text-sm font-semibold text-ink mb-1">
+      <p className="text-xl font-extrabold text-ink leading-snug mb-2">
         How much are you looking to borrow?
       </p>
-      <p className="text-xs text-ink-500 mb-5">
+      <p className="text-sm text-ink-500 mb-6">
         This helps us find the right options for you.
       </p>
 
-      <div className="text-center mb-4">
-        <span className="text-3xl font-bold text-brand-700 tabular-nums">
-          ${amount.toLocaleString()}
+      <div className="text-center mb-5">
+        <span className="text-[13px] font-medium text-ink-400 align-top relative top-[0.5em]">$</span>
+        <span className="text-[52px] font-extrabold text-brand-700 tabular-nums leading-none tracking-tight">
+          {amount.toLocaleString()}
         </span>
       </div>
 
@@ -116,12 +117,12 @@ function StatItem({ value, label, delay }: { value: string; label: string; delay
       initial={{ y: 20, opacity: 0 }}
       animate={inView ? { y: 0, opacity: 1 } : {}}
       transition={{ duration: 0.6, delay }}
-      className="text-center sm:text-left"
+      className="text-center sm:text-left min-w-0"
     >
-      <div className="text-2xl sm:text-3xl font-extrabold text-white tabular-nums">
+      <div className="text-xl sm:text-2xl font-extrabold text-white tabular-nums whitespace-nowrap">
         {value}
       </div>
-      <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-[0.16em] mt-2">
+      <div className="text-[9px] sm:text-[10px] text-white/60 mt-1 leading-snug">
         {label}
       </div>
     </motion.div>
@@ -139,9 +140,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.9, duration: 0.5 }}
-              className="inline-block text-xs font-semibold text-brand-300 uppercase tracking-[0.18em] mb-5"
+              className="inline-flex items-center gap-3 text-xs font-semibold text-brand-300 tracking-normal mb-5"
             >
-              Fast &mdash; Secure &mdash; Trusted
+              <span className="w-8 h-px bg-brand-300/50" />
+              Fast &bull; Secure &bull; Trusted
+              <span className="w-8 h-px bg-brand-300/50" />
             </motion.span>
 
             <h1 className="text-[36px] sm:text-[48px] lg:text-[62px] font-extrabold leading-[1.05] tracking-[-0.035em] text-white mb-6">
@@ -166,11 +169,11 @@ export default function Hero() {
               className="btn-primary btn-sheen inline-flex items-center gap-2"
             >
               See my savings
-              <PlayArrowIcon size={16} />
+              <PlayArrowIcon size={16} className="btn-arrow" />
             </motion.a>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 mt-14">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5 mt-10">
               {stats.map((stat, i) => (
                 <StatItem
                   key={stat.label}

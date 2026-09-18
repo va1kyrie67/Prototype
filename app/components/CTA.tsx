@@ -37,10 +37,10 @@ export default function CTA() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <a href="#quote" className="btn-on-dark btn-sheen px-6 py-2.5">
+          <a href="#quote" className="btn-on-dark btn-sheen px-6 py-2.5 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 ease-out hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
             Get Started
           </a>
-          <a href="#book" className="btn-ghost-on-dark px-6 py-2.5">
+          <a href="#book" className="btn-ghost-on-dark px-6 py-2.5 hover:scale-[1.03] hover:bg-white/10 hover:border-white/60 active:scale-[0.97] transition-all duration-200 ease-out">
             Contact Us
           </a>
         </motion.div>

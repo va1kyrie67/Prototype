@@ -1,19 +1,51 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneIcon, HamburgerIcon, CloseIcon } from "./Icons";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "#about" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Loan Options", href: "#loan-options" },
-  { label: "FAQs", href: "#faqs" },
+  { label: "Home", href: "/", sectionId: null },
+  { label: "About", href: "#about", sectionId: "about" },
+  { label: "How It Works", href: "#how-it-works", sectionId: "how-it-works" },
+  { label: "Loan Options", href: "#loan-options", sectionId: "loan-options" },
+  { label: "FAQs", href: "#faqs", sectionId: "faqs" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sections = navLinks
+      .filter((l) => l.sectionId)
+      .map((l) => document.getElementById(l.sectionId!))
+      .filter(Boolean) as HTMLElement[];
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const isActive = (link: typeof navLinks[0]) => {
+    if (link.href === "/") {
+      return activeSection === null;
+    }
+    return activeSection === link.sectionId;
+  };
 
   return (
     <motion.header
@@ -26,7 +58,7 @@ export default function Navbar() {
         <nav className="flex h-[62px] items-center justify-between rounded-full bg-white px-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="PriorityPlus Financial" className="h-9 w-auto" />
+            <img src="/logo.png" alt="PriorityPlus Financial" className="h-12 w-auto" />
           </a>
 
           {/* Desktop Nav */}
@@ -35,13 +67,16 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className={`text-sm font-medium transition-all duration-200 hover:-translate-y-[2px] ${
-                  link.label === "Home"
+                className={`text-sm font-medium transition-all duration-200 hover:-translate-y-[2px] relative ${
+                  isActive(link)
                     ? "text-brand-700"
                     : "text-ink-500 hover:text-brand-700"
                 }`}
               >
                 {link.label}
+                {isActive(link) && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-brand-700 rounded-full" />
+                )}
               </a>
             ))}
           </div>

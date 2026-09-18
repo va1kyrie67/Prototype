@@ -59,9 +59,9 @@ export default function Consultants() {
               initial={{ y: 30, opacity: 0 }}
               animate={inView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-              className="bg-white rounded-card p-7 text-center shadow-card border border-slate-100 group flex flex-col items-center"
+              className="bg-white rounded-card p-7 pt-8 text-center shadow-card border border-slate-100 group flex flex-col items-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-cardHover"
             >
-              <div className="w-20 h-20 rounded-full mx-auto mb-5 overflow-hidden ring-2 ring-brand-100 group-hover:scale-110 transition-transform duration-500 bg-slate-100">
+              <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-2 ring-brand-100 group-hover:scale-110 transition-transform duration-500 bg-slate-100">
                 <img
                   src={c.image}
                   alt={c.name}
@@ -69,17 +69,19 @@ export default function Consultants() {
                 />
               </div>
               <h3 className="text-base font-bold text-ink">{c.name}</h3>
-              <p className="text-sm text-ink-500 mt-1.5">{c.role}</p>
-              <div className="flex items-center justify-center gap-1.5 mt-3">
+              <p className="text-sm text-ink-500 mt-1">{c.role}</p>
+              <div className="flex items-center justify-center gap-1.5 mt-2">
                 <StarIcon size={14} className="text-brand-700 shrink-0" />
-                <p className="text-[13px] text-brand-700 font-medium whitespace-nowrap">{c.review}</p>
+                <p className="text-[13px] text-brand-700 font-medium">{c.review}</p>
               </div>
-              <a
-                href="#book"
-                className="inline-block mt-auto pt-7 px-6 py-2.5 rounded-full border border-brand-700 text-brand-700 text-sm font-semibold hover:bg-brand-700 hover:text-white transition-colors"
-              >
-                Book with {c.name.split(" ")[0]}
-              </a>
+              <div className="mt-auto pt-6 w-full">
+                <a
+                  href="#book"
+                  className="block w-full px-6 py-2.5 rounded-full border border-brand-700 text-brand-700 text-sm font-semibold transition-colors duration-300 ease-out hover:bg-brand-700 hover:text-white"
+                >
+                  Book with {c.name.split(" ")[0]}
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -133,7 +135,7 @@ export default function Consultants() {
             initial={{ y: 30, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="bg-panel-navy rounded-card p-6 shadow-panel"
+            className="relative bg-panel-navy rounded-card p-6 shadow-panel overflow-hidden"
           >
             <h3 className="text-base font-bold text-white mb-4">
               Pick a time, your consultant calls you.
@@ -144,10 +146,10 @@ export default function Consultants() {
                 <button
                   key={slot}
                   onClick={() => setSelectedSlot(i)}
-                  className={`text-xs font-medium px-3 py-2.5 rounded-full border transition-colors ${
+                  className={`text-xs font-medium px-3 py-2.5 rounded-full border transition-all duration-200 ease-out active:scale-[0.97] ${
                     selectedSlot === i
-                      ? "border-white bg-white/10 text-white"
-                      : "border-white/20 text-white/70 hover:border-white/45 hover:bg-white/10"
+                      ? "border-white bg-white/15 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]"
+                      : "border-white/25 text-white/70 hover:border-white/50 hover:bg-white/10 hover:scale-[1.03]"
                   }`}
                 >
                   {slot}
@@ -155,7 +157,7 @@ export default function Consultants() {
               ))}
             </div>
 
-            <button className="btn-on-dark btn-sheen w-full mb-4">
+            <button className="btn-on-dark btn-sheen w-full mb-4 active:scale-[0.97] hover:scale-[1.03] transition-all duration-200 ease-out hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
               <LightningIcon size={16} />
               Call me in the next 2 minutes
             </button>

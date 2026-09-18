@@ -34,7 +34,9 @@ export default function Timeline() {
   const trackRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const circleRefs = useRef<HTMLDivElement[]>([]);
+  const glowRefs = useRef<HTMLDivElement[]>([]);
   const lineRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -44,85 +46,138 @@ export default function Timeline() {
     if (!wrapper || !track || !heading) return;
 
     const circles = circleRefs.current.filter(Boolean);
+    const glows = glowRefs.current.filter(Boolean);
+    const cards = cardsRef.current.filter(Boolean);
     if (circles.length === 0) return;
 
-    // Calculate scroll distance
-    const getMaxScroll = () => {
-      return track.scrollWidth - window.innerWidth + 200;
-    };
+    let ctx: gsap.Context;
+    let scrollTriggerInstance: ScrollTrigger | null = null;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
+    const initAnimation = () => {
+      ctx = gsap.context(() => {
+        const trackWidth = track.scrollWidth;
+        const viewWidth = window.innerWidth;
+        const totalScroll = trackWidth - viewWidth;
+
+        // Set initial glow states
+        glows.forEach((glow) => {
+          gsap.set(glow, { opacity: 0, scale: 0.8 });
+        });
+
+        // Set initial card states
+        cards.forEach((card) => {
+          gsap.set(card, { opacity: 0.4, y: 10 });
+        });
+
+        // Calculate each circle's position as a fraction of total scroll
+        // (0 = first circle at left edge, 1 = last circle at right edge)
+        const circlePositions = circles.map((c) => {
+          const rect = c.getBoundingClientRect();
+          const trackRect = track.getBoundingClientRect();
+          const centerInTrack = rect.left - trackRect.left + rect.width / 2;
+          // Convert to fraction of the scrollable distance
+          return centerInTrack / trackWidth;
+        });
+
+        scrollTriggerInstance = ScrollTrigger.create({
           trigger: wrapper,
           start: "top top",
-          end: () => `+=${getMaxScroll()}`,
+          end: () => `+=${totalScroll}`,
           pin: true,
-          scrub: 0.5,
+          scrub: 0.4,
           invalidateOnRefresh: true,
-        },
-      });
+          onUpdate: (self) => {
+            const progress = self.progress;
 
-      // Move track horizontally
-      tl.to(track, {
-        x: () => -getMaxScroll(),
-        ease: "none",
-      }, 0);
+            // Move track horizontally
+            gsap.set(track, { x: -progress * totalScroll });
 
-      // Animate heading out
-      tl.to(heading, {
-        opacity: 0,
-        y: -20,
-        ease: "power2.in",
-        duration: 0.15,
-      }, 0);
+            // Fill progress line — use same progress value directly
+            if (line) {
+              gsap.set(line, { scaleX: progress, transformOrigin: "left center" });
+            }
 
-      // Animate progress line width
-      if (line) {
-        tl.fromTo(line,
-          { scaleX: 0 },
-          { scaleX: 1, ease: "none", transformOrigin: "left center" },
-          0.05
-        );
-      }
+            // The leading edge of the line is at `progress` fraction of the track
+            const lineLeading = progress;
 
-      // Highlight circles based on timeline progress
-      const stepDuration = 1 / circles.length;
-      circles.forEach((circle, i) => {
-        const start = i * stepDuration;
-        const mid = start + stepDuration * 0.5;
-        const end = start + stepDuration;
+            const stepCount = circles.length;
+            for (let i = 0; i < stepCount; i++) {
+              const circleFrac = circlePositions[i];
+              // How far past the line has reached this circle (0 = just reached, positive = passed)
+              const distPast = lineLeading - circleFrac;
+              // How far until the line reaches it (positive = not yet reached)
+              const distAhead = circleFrac - lineLeading;
 
-        // Scale up + fill when active
-        tl.to(circle, {
-          scale: 1.35,
-          backgroundColor: "#1a3d7c",
-          color: "#fff",
-          borderColor: "#1a3d7c",
-          ease: "power2.inOut",
-          duration: stepDuration * 0.4,
-        }, mid);
+              // Circle is "active" when the line has just reached or is approaching it
+              // Use a smooth band around the line position
+              const activeBand = 0.08; // ~8% of total scroll for active zone
+              const inActiveZone = distPast > -activeBand && distPast < activeBand;
+              const isHighlighted = inActiveZone || (i === stepCount - 1 && progress >= circleFrac);
 
-        // Scale back down after
-        if (i < circles.length - 1) {
-          tl.to(circle, {
-            scale: 1,
-            backgroundColor: "#fff",
-            color: "#1a3d7c",
-            borderColor: "#1a3d7c",
-            ease: "power2.inOut",
-            duration: stepDuration * 0.3,
-          }, end);
-        }
-      });
-    }, wrapperRef);
+              // Smooth intensity: peaks when line is exactly at circle position
+              const intensity = Math.max(0, 1 - Math.abs(distPast) / activeBand);
+              const smoothIntensity = intensity * intensity; // ease-in for cleaner feel
 
-    return () => ctx.revert();
+              const maxScale = 1.35;
+              const minScale = 1.0;
+              const scale = minScale + (maxScale - minScale) * smoothIntensity;
+
+              // Circle appearance
+              gsap.to(circles[i], {
+                scale: scale,
+                backgroundColor: isHighlighted ? "#174195" : "#fff",
+                color: isHighlighted ? "#fff" : "#174195",
+                borderColor: isHighlighted ? "#174195" : "#bdd4f7",
+                duration: 0.3,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+
+              // Glow
+              if (glows[i]) {
+                if (isHighlighted) {
+                  glows[i].classList.add("tl-glow-active");
+                } else {
+                  glows[i].classList.remove("tl-glow-active");
+                }
+                gsap.to(glows[i], {
+                  opacity: smoothIntensity,
+                  scale: 0.8 + smoothIntensity * 0.2,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  overwrite: "auto",
+                });
+              }
+
+              // Card text
+              if (cards[i]) {
+                gsap.to(cards[i], {
+                  opacity: 0.4 + smoothIntensity * 0.6,
+                  y: 10 - smoothIntensity * 10,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  overwrite: "auto",
+                });
+              }
+            }
+          },
+        });
+      }, wrapperRef);
+    };
+
+    // Small delay to ensure layout is ready
+    const timer = setTimeout(initAnimation, 100);
+
+    return () => {
+      clearTimeout(timer);
+      scrollTriggerInstance?.kill();
+      ctx?.revert();
+    };
   }, []);
 
   return (
     <section className="bg-white">
-      <div ref={wrapperRef} className="relative h-screen overflow-hidden">
+      <div ref={wrapperRef} className="relative min-h-[85vh] overflow-hidden">
         <div className="shell h-full flex flex-col justify-center">
           <h2
             ref={headingRef}
@@ -133,7 +188,7 @@ export default function Timeline() {
           </h2>
 
           {/* Horizontal Track */}
-          <div className="overflow-hidden relative">
+          <div className="relative">
             {/* Progress Line */}
             <div className="absolute top-[22px] left-0 right-0 h-[2px] bg-slate-200">
               <div
@@ -149,23 +204,37 @@ export default function Timeline() {
                   key={step.num}
                   className="flex flex-col items-center w-[230px] shrink-0 relative"
                 >
-                  <div
-                    ref={(el) => { if (el) circleRefs.current[i] = el; }}
-                    className="w-11 h-11 rounded-full bg-white border-2 border-brand-700 text-brand-700 flex items-center justify-center text-sm font-bold mb-4 shadow-pill relative z-10"
-                  >
-                    {step.num}
+                  {/* Glow ring behind circle */}
+                  <div className="relative">
+                    <div
+                      ref={(el) => { if (el) glowRefs.current[i] = el; }}
+                      className="absolute inset-[-8px] rounded-full bg-brand-700/20 blur-md"
+                      style={{ opacity: 0 }}
+                    />
+                    <div
+                      ref={(el) => { if (el) circleRefs.current[i] = el; }}
+                      className="w-11 h-11 rounded-full bg-white border-2 border-brand-700 text-brand-700 flex items-center justify-center text-sm font-bold relative z-10"
+                      style={{ willChange: "transform, background-color, color, border-color" }}
+                    >
+                      {step.num}
+                    </div>
                   </div>
-                  <h3 className="text-sm font-bold text-ink mb-1 text-center">{step.title}</h3>
-                  <p className="text-xs text-ink-600 leading-relaxed px-2 text-center">
-                    {step.desc}
-                  </p>
+                  <div
+                    ref={(el) => { if (el) cardsRef.current[i] = el; }}
+                    className="mt-4 text-center"
+                  >
+                    <h3 className="text-sm font-bold text-ink mb-1">{step.title}</h3>
+                    <p className="text-xs text-ink-600 leading-relaxed px-2">
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Warning Banner */}
-          <div className="bg-danger-light rounded-xl p-4 max-w-[700px] mx-auto mt-6 text-left">
+          <div className="bg-danger-light rounded-xl p-4 max-w-[700px] mx-auto mt-10 text-left">
             <p className="text-sm font-bold text-danger mb-1">
               Don&apos;t let minimum payments slow you down.
             </p>

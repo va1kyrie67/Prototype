@@ -18,15 +18,15 @@ export default function IntroOverlay() {
 
       tl.to(contentRef.current, {
         opacity: 0,
-        duration: 0.25,
-        delay: 0.35,
+        duration: 0.2,
+        delay: 0.2,
         ease: "power2.in",
       })
         .to(
           leftRef.current,
           {
             xPercent: -100,
-            duration: 0.5,
+            duration: 0.4,
             ease: "power4.inOut",
           },
           "+=0.02"
@@ -35,14 +35,19 @@ export default function IntroOverlay() {
           rightRef.current,
           {
             xPercent: 100,
-            duration: 0.5,
+            duration: 0.4,
             ease: "power4.inOut",
           },
           "<"
         );
     }, containerRef);
 
-    return () => ctx.revert();
+    const fallback = setTimeout(() => setVisible(false), 1000);
+
+    return () => {
+      clearTimeout(fallback);
+      ctx.revert();
+    };
   }, []);
 
   if (!visible) return null;

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import { SendIcon, PlusIcon, MinusIcon } from "./Icons";
 
 const faqData = [
@@ -25,10 +25,46 @@ const quickReplies = [
   "What's the catch?",
 ];
 
+const botResponses: Record<string, string> = {
+  "Will this lower my credit score?": "Checking your rate uses a soft inquiry, which has zero impact on your credit score. A hard pull only occurs if you choose to accept a loan offer.",
+  "Is consolidation right for me?": "If you have multiple high-interest debts (credit cards, store cards, etc.) and want one fixed monthly payment at a potentially lower rate, consolidation could save you money and simplify your finances.",
+  "What's the catch?": "There's no catch. Comparing offers is free — lenders pay us a fee when a loan funds. You see your real rate upfront with no hidden fees or origination surprises.",
+};
+
+type ChatMessage = { role: "user" | "bot"; text: string };
+
 export default function FAQs() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const el = scrollContainerRef.current;
+      if (el) {
+        el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      }
+    });
+  }, [chatMessages]);
+
+  function handleSend(text: string) {
+    if (!text.trim()) return;
+    const userMsg: ChatMessage = { role: "user", text: text.trim() };
+    setChatMessages((prev) => [...prev, userMsg]);
+    setInputValue("");
+
+    setTimeout(() => {
+      const response = botResponses[text.trim()] || "Thanks for your question! A PriorityPlus specialist can give you a personalized answer — want to schedule a quick call?";
+      setChatMessages((prev) => [...prev, { role: "bot", text: response }]);
+    }, 600);
+  }
+
+  function handleChipClick(qr: string) {
+    handleSend(qr);
+  }
 
   return (
     <section id="faqs" className="py-14 sm:py-20 bg-soft-sky">
@@ -73,11 +109,33 @@ export default function FAQs() {
               </div>
             </div>
 
+            {/* Chat messages */}
+            <div ref={scrollContainerRef} className="flex flex-col gap-3 mb-4 h-[200px] overflow-y-auto chat-scroll">
+              {chatMessages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex shrink-0 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                      msg.role === "user"
+                        ? "bg-brand-700 text-white"
+                        : "bg-[#f7fafe] text-ink"
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Suggested chips */}
             <div className="flex flex-wrap gap-2 mb-4">
               {quickReplies.map((qr) => (
                 <button
                   key={qr}
-                  className="text-xs font-medium text-brand-700 border border-brand-200 rounded-full px-3 py-1.5 hover:bg-brand-50 transition-colors"
+                  onClick={() => handleChipClick(qr)}
+                  className="text-xs font-medium text-brand-700 border border-brand-200 rounded-full px-3 py-1.5 hover:bg-brand-50 transition-colors duration-300 ease-out"
                 >
                   {qr}
                 </button>
@@ -87,10 +145,18 @@ export default function FAQs() {
             <div className="flex gap-2">
               <input
                 type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSend(inputValue);
+                }}
                 placeholder="Ask about rates, fees, your situation..."
                 className="flex-1 text-sm px-4 py-2.5 rounded-full border border-slate-200 bg-surface-muted focus:outline-none focus:border-brand-700 transition-colors"
               />
-              <button className="btn-primary btn-sheen px-4 py-2.5 text-xs">
+              <button
+                onClick={() => handleSend(inputValue)}
+                className="btn-primary btn-sheen px-4 py-2.5 text-xs"
+              >
                 Send
                 <SendIcon size={14} />
               </button>

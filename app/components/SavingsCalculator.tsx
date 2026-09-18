@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { WarningIcon, ArrowRightIcon } from "./Icons";
+import { useCountUp } from "../lib/useCountUp";
 
 function computeSavings(debt: number, apr: number) {
   // Current plan: 2.5% of balance per month minimum payment at current APR
@@ -59,8 +60,11 @@ export default function SavingsCalculator() {
   const [apr, setApr] = useState(24);
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const darkCardRef = useRef<HTMLDivElement>(null);
+  const darkCardInView = useInView(darkCardRef, { once: true, margin: "-50px" });
 
   const savings = computeSavings(debt, apr);
+  const { ref: countUpRef, value: countUpValue } = useCountUp(savings.interestSaved, 1800);
 
   const debtGradient =
     "linear-gradient(90deg, #174195 0%, #174195 " +
@@ -169,22 +173,35 @@ export default function SavingsCalculator() {
 
           {/* Right Card — Dark */}
           <motion.div
+            ref={darkCardRef}
             initial={{ y: 30, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="bg-panel-navy rounded-card p-6 sm:p-8 text-white shadow-panel"
+            className="relative bg-panel-navy rounded-card p-6 sm:p-8 text-white shadow-panel overflow-hidden"
           >
+            {/* Illustration — top right */}
+            <div className="absolute top-4 right-4 opacity-20 pointer-events-none">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <circle cx="40" cy="52" r="18" fill="#fff" />
+                <circle cx="40" cy="44" r="18" fill="#fff" opacity="0.7" />
+                <circle cx="40" cy="36" r="18" fill="#fff" opacity="0.4" />
+                <rect x="52" y="18" width="22" height="16" rx="3" fill="#22c55e" />
+                <path d="M58 26 L62 22 L66 26" stroke="#fff" strokeWidth="1.5" fill="none" />
+                <text x="56" y="32" fill="#fff" fontSize="6" fontWeight="bold">Save!</text>
+              </svg>
+            </div>
+
             <p className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.16em] mb-3">
               One payment. Big savings.
             </p>
-            <div className="flex items-baseline gap-2 mb-2">
+            <div className="flex items-baseline gap-2 mb-2" ref={countUpRef}>
               <span className="text-4xl sm:text-5xl font-extrabold tabular-nums">
-                ${savings.interestSaved.toLocaleString()}
+                ${countUpValue.toLocaleString()}
               </span>
               <span className="text-sm font-medium text-white/60">in interest</span>
             </div>
             <p className="text-sm text-white/60 mb-6">
-              Become debt free {savings.yearsSooner} {savings.yearsSooner === 1 ? "year" : "years"} sooner with one fixed
+              Become debt free <span className="font-bold text-white">{savings.yearsSooner}</span> {savings.yearsSooner === 1 ? "year" : "years"} sooner with one fixed
               monthly payment.
             </p>
 

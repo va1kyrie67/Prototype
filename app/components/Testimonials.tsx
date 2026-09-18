@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { StarIcon } from "./Icons";
+import gsap from "gsap";
 
 const testimonials = [
   {
@@ -47,7 +48,7 @@ const doubled = [...testimonials, ...testimonials];
 
 function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
-    <div className="bg-panel-navy rounded-card p-5 flex flex-col min-w-[300px] max-w-[300px] shrink-0">
+    <div className="bg-panel-navy rounded-card p-5 flex flex-col w-[300px] shrink-0">
       <div className="flex gap-0.5 mb-3">
         {[...Array(5)].map((_, j) => (
           <StarIcon key={j} size={14} className="text-[#f5c044]" />
@@ -65,6 +66,42 @@ function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
 export default function Testimonials() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const trackRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    if (!track || !wrapper) return;
+
+    let tween: gsap.core.Tween | null = null;
+
+    const ctx = gsap.context(() => {
+      requestAnimationFrame(() => {
+        const items = track.children;
+        const halfCount = items.length / 2;
+
+        let totalHalfWidth = 0;
+        for (let i = 0; i < halfCount; i++) {
+          const rect = (items[i] as HTMLElement).getBoundingClientRect();
+          totalHalfWidth += rect.width;
+        }
+        totalHalfWidth += (halfCount - 1) * 16;
+
+        tween = gsap.to(track, {
+          x: -totalHalfWidth,
+          duration: 30,
+          ease: "none",
+          repeat: -1,
+        });
+      });
+    }, wrapperRef);
+
+    return () => {
+      tween?.kill();
+      ctx.revert();
+    };
+  }, []);
 
   return (
     <section className="py-14 sm:py-20 bg-white overflow-hidden">
@@ -98,9 +135,9 @@ export default function Testimonials() {
         </motion.div>
       </div>
 
-      {/* Auto-scrolling marquee — no shell wrapper for full bleed */}
-      <div className="overflow-hidden group">
-        <div className="flex gap-4 w-max animate-marquee group-hover:[animation-play-state:paused]">
+      {/* GSAP-powered carousel — no shell wrapper for full bleed */}
+      <div ref={wrapperRef} className="overflow-hidden group">
+        <div ref={trackRef} className="flex gap-4 w-max will-change-transform">
           {doubled.map((t, i) => (
             <TestimonialCard key={`${t.name}-${i}`} t={t} />
           ))}

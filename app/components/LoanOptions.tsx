@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const loans = [
-  { name: "SoFi", amount: "$40,000", apr: "6.99%", term: "48/mo", logo: "/lenders/sofi.png" },
+  { name: "SoFi", amount: "$40,000", apr: "6.99%", term: "48 mo", logo: "/lenders/sofi.png" },
   { name: "Prosper", amount: "$35,000", apr: "7.29%", term: "60 mo", logo: "/lenders/prosper.png" },
   { name: "Upgrade", amount: "$30,000", apr: "8.49%", term: "36 mo", logo: "/lenders/upgrade.png" },
   { name: "Best Egg", amount: "$25,000", apr: "8.99%", term: "36 mo", logo: "/lenders/best-egg.png" },
@@ -15,7 +15,7 @@ export default function LoanOptions() {
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="loan-options" className="py-14 sm:py-20 bg-white">
+    <section id="loan-options" className="py-16 lg:py-20 bg-soft-sky">
       <div className="shell">
         <motion.h2
           ref={sectionRef}
@@ -27,60 +27,56 @@ export default function LoanOptions() {
           Sample Personal <span className="text-brand-700">Loan Offers.</span>
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-[1020px] mx-auto">
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 max-w-[1080px] mx-auto">
           {loans.map((loan, i) => (
             <motion.div
               key={loan.name}
               initial={{ y: 30, opacity: 0 }}
               animate={inView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
-              className="bg-white rounded-xl shadow-card p-5 flex flex-col border border-slate-100 hover:shadow-cardHover transition-shadow"
+              className="card flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-cardHover"
             >
-              {/* Logo / Name */}
-              <div className="mb-4 flex items-center gap-3">
+              {/* Logo */}
+              <div className="flex h-[44px] items-center">
                 <img
                   src={loan.logo}
                   alt={`${loan.name} logo`}
-                  className="w-10 h-10 rounded-lg object-contain shrink-0"
+                  className="h-[28px] w-auto object-contain"
                 />
-                <span className="text-lg font-bold text-ink">{loan.name}</span>
               </div>
 
-              {/* 3-Column Row */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
+              {/* 3-Column Data Grid */}
+              <dl className="mt-6 grid grid-cols-3 gap-3">
                 <div>
-                  <p className="text-[10px] text-ink-400 uppercase tracking-[0.12em] font-medium">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
                     Amount
-                  </p>
-                  <p className="text-base font-bold text-ink tabular-nums mt-0.5">
+                  </dt>
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-ink tabular-nums">
                     {loan.amount}
-                  </p>
+                  </dd>
                 </div>
                 <div>
-                  <p className="text-[10px] text-ink-400 uppercase tracking-[0.12em] font-medium">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
                     APR
-                  </p>
-                  <p className="text-base font-bold text-brand-700 tabular-nums mt-0.5">
+                  </dt>
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-brand-700 tabular-nums">
                     {loan.apr}
-                  </p>
+                  </dd>
                 </div>
                 <div>
-                  <p className="text-[10px] text-ink-400 uppercase tracking-[0.12em] font-medium">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
                     Term
-                  </p>
-                  <p className="text-base font-bold text-ink tabular-nums mt-0.5">
+                  </dt>
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-ink tabular-nums">
                     {loan.term}
-                  </p>
+                  </dd>
                 </div>
-              </div>
-
-              {/* Divider */}
-              <div className="h-px bg-slate-200 mb-4" />
+              </dl>
 
               {/* View Offer */}
               <a
                 href="#quote"
-                className="text-sm font-semibold text-brand-700 hover:text-brand-800 transition-colors mt-auto"
+                className="mt-auto border-t border-slate-100 pt-[18px] text-center text-[12.5px] font-bold text-brand-700 transition-colors hover:text-brand-500"
               >
                 View Offer
               </a>

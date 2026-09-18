@@ -46,7 +46,7 @@ export default function Footer() {
         <div className="lg:grid lg:grid-cols-[352px_repeat(3,minmax(0,1fr))] gap-10 mb-12">
           {/* Logo & Description */}
           <div className="mb-8 lg:mb-0">
-            <img src="/logo.png" alt="PriorityPlus Financial" className="h-10 w-auto mb-4" />
+            <img src="/logo.png" alt="PriorityPlus Financial" className="h-14 w-auto mb-4" />
             <p className="text-sm text-ink-500 leading-relaxed max-w-xs">
               PriorityPlus Financial is a marketplace connecting borrowers with
               a curated network of trusted lending partners. We are not a
@@ -56,7 +56,7 @@ export default function Footer() {
 
           {/* Link Columns */}
           <div>
-            <h4 className="text-xs font-semibold text-ink uppercase tracking-[0.16em] mb-4">
+            <h4 className="text-xs font-semibold text-brand-700 mb-4">
               Product
             </h4>
             <ul className="space-y-2.5">
@@ -67,7 +67,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-ink uppercase tracking-[0.16em] mb-4">
+            <h4 className="text-xs font-semibold text-brand-700 mb-4">
               Services
             </h4>
             <ul className="space-y-2.5">
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-ink uppercase tracking-[0.16em] mb-4">
+            <h4 className="text-xs font-semibold text-brand-700 mb-4">
               Loan Types
             </h4>
             <ul className="space-y-2.5">
