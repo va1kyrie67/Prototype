@@ -182,7 +182,7 @@ export default function AboutBills() {
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 relative bg-panel-navy rounded-card p-8 sm:p-10 text-center shadow-panel z-10 w-[280px] sm:w-[340px] overflow-hidden"
             >
               <p className="text-sm font-semibold text-white/60 mb-1">
-                PriorityPlus
+                Ali Aun
               </p>
               <p className="text-5xl font-extrabold text-white tabular-nums">
                 $318<span className="text-lg font-semibold">/mo</span>

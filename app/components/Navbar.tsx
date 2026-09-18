@@ -55,10 +55,10 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3"
     >
       <div className="shell">
-        <nav className="flex h-[62px] items-center justify-between rounded-full bg-white px-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
+        <nav className="flex h-[72px] items-center justify-between rounded-full bg-white px-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="PriorityPlus Financial" className="h-12 w-auto" />
+            <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto" />
           </a>
 
           {/* Desktop Nav */}
@@ -84,11 +84,11 @@ export default function Navbar() {
           {/* Desktop Right */}
           <div className="flex items-center gap-4">
             <a
-              href="tel:+18889992813"
+              href="tel:+18888738319"
               className="hidden md:flex items-center gap-2 text-ink-500 hover:text-brand-700 text-sm font-medium transition-all duration-200 hover:-translate-y-[2px]"
             >
               <PhoneIcon size={16} />
-              (888) 999-2813
+              (888) 873-8319
             </a>
             <a
               href="#quote"
@@ -129,11 +129,11 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="tel:+18889992813"
+                href="tel:+18888738319"
                 className="flex items-center gap-2 text-white/60 text-sm sm:hidden"
               >
                 <PhoneIcon size={16} />
-                (888) 999-2813
+                (888) 873-8319
               </a>
               <a href="#quote" className="btn-primary btn-sheen w-full text-center">
                 Check My Rate

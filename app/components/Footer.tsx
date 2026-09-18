@@ -46,9 +46,9 @@ export default function Footer() {
         <div className="lg:grid lg:grid-cols-[352px_repeat(3,minmax(0,1fr))] gap-10 mb-12">
           {/* Logo & Description */}
           <div className="mb-8 lg:mb-0">
-            <img src="/logo.png" alt="PriorityPlus Financial" className="h-14 w-auto mb-4" />
+            <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto mb-4" />
             <p className="text-sm text-ink-500 leading-relaxed max-w-xs">
-              PriorityPlus Financial is a marketplace connecting borrowers with
+              Ali Aun is a marketplace connecting borrowers with
               a curated network of trusted lending partners. We are not a
               lender.
             </p>
@@ -92,25 +92,25 @@ export default function Footer() {
         {/* Contact Row */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-8 py-5 border-t border-slate-200">
           <a
-            href="tel:+18889992813"
+            href="tel:+18888738319"
             className="flex items-center gap-3 group"
           >
             <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
               <PhoneIcon size={16} />
             </div>
             <span className="text-sm text-ink-500 group-hover:text-brand-700 transition-colors">
-              (888) 999-2813
+              (888) 873-8319
             </span>
           </a>
           <a
-            href="mailto:info@priorityplusfinancial.com"
+            href="mailto:info@aliaun.com"
             className="flex items-center gap-3 group"
           >
             <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
               <EmailIcon size={16} />
             </div>
             <span className="text-sm text-ink-500 group-hover:text-brand-700 transition-colors">
-              info@priorityplusfinancial.com
+              info@aliaun.com
             </span>
           </a>
           <div className="flex items-center gap-3">
@@ -118,7 +118,7 @@ export default function Footer() {
               <GlobeIcon size={16} />
             </div>
             <span className="text-sm text-ink-400">
-              Brentwood, TN Office &bull; Costa Mesa, CA Office
+              Lahore, Pakistan
             </span>
           </div>
         </div>
@@ -126,17 +126,17 @@ export default function Footer() {
         {/* Legal Disclaimers */}
         <div className="space-y-3 mb-8">
           <p className="text-[10px] text-ink-400 leading-relaxed">
-            PriorityPlus Financial is not a lender. We connect consumers with
+            Ali Aun is not a lender. We connect consumers with
             third-party lending partners. Loan offers are subject to
             eligibility and lender approval. Checking your rate uses a soft
             inquiry and won&apos;t affect your credit score. Loan amounts, rates,
             and terms vary by lender and applicant qualifications.
           </p>
           <p className="text-[10px] text-ink-400 leading-relaxed">
-            PriorityPlus Financial is a Utah-licensed lender under the Utah
+            Ali Aun is a Utah-licensed lender under the Utah
             Department of Financial Institutions (NMLS #2242692). Personal loan
             offers provided to customers who originated via a paid Google or Bing
-            advertisement feature rate quotes on PriorityPlus Financial of no
+            advertisement feature rate quotes on Ali Aun of no
             greater than 35.99% APR with terms from 61 days to 180 months. Your
             actual rate depends upon credit score, loan amount, loan term,
             domicile, and credit usage and history, and will be agreed upon
@@ -149,7 +149,7 @@ export default function Footer() {
 
         {/* Bottom Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-ink-400">
-          <p>&copy;2026 PriorityPlus Financial. All rights reserved.</p>
+          <p>&copy;2026 Ali Aun. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="text-brand-600 hover:text-brand-700 transition-colors">
               Terms of Use

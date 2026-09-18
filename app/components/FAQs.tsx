@@ -7,14 +7,14 @@ import { SendIcon, PlusIcon, MinusIcon } from "./Icons";
 const faqData = [
   {
     q: "Will checking my rate hurt my credit score?",
-    a: "No. Checking your rate with PriorityPlus is a soft credit inquiry — it's free, takes about 60 seconds, and has zero impact on your credit score. A hard pull only happens later, if you choose to accept an offer.",
+    a: "No. Checking your rate with Ali Aun is a soft credit inquiry — it's free, takes about 60 seconds, and has zero impact on your credit score. A hard pull only happens later, if you choose to accept an offer.",
   },
   {
     q: "How much can I consolidate?",
     a: "Personal consolidation loans on our marketplace typically range from $5,000 to $500,000 depending on the lender, your income, and your credit profile. Most borrowers combine credit cards, medical bills, and store financing into a single fixed payment.",
   },
   {
-    q: "What does it cost to use PriorityPlus?",
+    q: "What does it cost to use Ali Aun?",
     a: "Nothing. Comparing offers is completely free — lenders pay us a fee when a loan funds, so you never receive a bill from us. The rate you see is the rate you get; no hidden origination surprises at checkout.",
   },
 ];
@@ -57,7 +57,7 @@ export default function FAQs() {
     setInputValue("");
 
     setTimeout(() => {
-      const response = botResponses[text.trim()] || "Thanks for your question! A PriorityPlus specialist can give you a personalized answer — want to schedule a quick call?";
+      const response = botResponses[text.trim()] || "Thanks for your question! An Ali Aun specialist can give you a personalized answer — want to schedule a quick call?";
       setChatMessages((prev) => [...prev, { role: "bot", text: response }]);
     }, 600);
   }
@@ -102,7 +102,7 @@ export default function FAQs() {
                   <span className="text-white text-xs font-bold">P</span>
                 </div>
                 <p className="text-sm text-ink leading-relaxed">
-                  Hi! I&apos;m the PriorityPlus copilot. Ask me anything about
+                  Hi! I&apos;m the Ali Aun copilot. Ask me anything about
                   consolidating debt, rates, or whether this is even right for
                   you. I&apos;ll be straight with you.
                 </p>

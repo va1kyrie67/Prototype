@@ -16,7 +16,7 @@ const testimonials = [
     name: "Maccy Doe",
     subtitle: "Saved me thousands in interest",
     quote:
-      "I was drowning in minimum payments. PriorityPlus walked me through my options, and I walked away with a clear payoff plan.",
+      "I was drowning in minimum payments. Ali Aun walked me through my options, and I walked away with a clear payoff plan.",
   },
   {
     name: "Jason L.",
@@ -28,13 +28,13 @@ const testimonials = [
     name: "Kian Hooshmand",
     subtitle: "Real progress at last",
     quote:
-      "Before finding PriorityPlus, my monthly debt felt completely unmanageable. Their team walked me through the entire consolidation process and combined everything into one single payment.",
+      "Before finding Ali Aun, my monthly debt felt completely unmanageable. Their team walked me through the entire consolidation process and combined everything into one single payment.",
   },
   {
     name: "Anthony R.",
     subtitle: "A clear payoff date",
     quote:
-      "I had four different interest rates climbing every month and no real plan to pay them off. PriorityPlus laid out clear loan options in minutes, cutting my monthly bill by $350.",
+      "I had four different interest rates climbing every month and no real plan to pay them off. Ali Aun laid out clear loan options in minutes, cutting my monthly bill by $350.",
   },
   {
     name: "Rachel V.",

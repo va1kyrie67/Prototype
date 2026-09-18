@@ -61,7 +61,7 @@ export default function IntroOverlay() {
           className="font-extrabold uppercase tracking-[0.04em] text-white"
           style={{ fontSize: "10vw" }}
         >
-          PriorityPlus
+          ALI AUN
         </span>
       </div>
     </div>
