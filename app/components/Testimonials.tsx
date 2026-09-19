@@ -104,14 +104,14 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-14 sm:py-20 bg-white overflow-hidden">
+    <section className="py-14 sm:py-20 bg-[#050505] overflow-hidden">
       <div className="shell">
         <motion.h2
           ref={sectionRef}
           initial={{ y: 30, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-3"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-3"
         >
           Real stories. <span className="text-brand-700">Real results.</span>
         </motion.h2>
@@ -129,7 +129,7 @@ export default function Testimonials() {
               <StarIcon key={i} size={18} className="text-accent-gold" />
             ))}
           </div>
-          <span className="text-xs font-medium text-ink-500">
+          <span className="text-xs font-medium text-white/50">
             4.9/5 from 12,400+ verified reviews
           </span>
         </motion.div>

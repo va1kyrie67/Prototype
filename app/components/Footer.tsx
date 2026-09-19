@@ -30,10 +30,10 @@ function FooterLink({ label, href }: { label: string; href: string }) {
     <li>
       <a
         href={href}
-        className="group relative text-sm text-ink-500 hover:text-brand-700 transition-colors inline-block"
+        className="group relative text-sm text-white/50 hover:text-brand-400 transition-colors inline-block"
       >
         {label}
-        <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-700 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+        <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-400 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
       </a>
     </li>
   );
@@ -41,16 +41,16 @@ function FooterLink({ label, href }: { label: string; href: string }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-50 pt-16 pb-8 border-t border-slate-200">
+    <footer className="bg-[#08080c] pt-16 pb-8 border-t border-white/[0.06]">
       <div className="shell">
         {/* Top */}
         <div className="lg:grid lg:grid-cols-[352px_repeat(3,minmax(0,1fr))] gap-10 mb-12">
           {/* Logo & Description */}
           <div className="mb-8 lg:mb-0">
-            <Link href="/" className="cursor-pointer inline-block">
-              <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto" />
+            <Link href="/" className="cursor-pointer inline-block leading-none">
+              <img src="/logo.png" alt="Ali Aun" className="h-20 w-auto block" />
             </Link>
-            <p className="text-sm text-ink-500 leading-relaxed max-w-xs">
+            <p className="text-sm text-white/50 leading-relaxed max-w-xs">
               Ali Aun is a marketplace connecting borrowers with
               a curated network of trusted lending partners. We are not a
               lender.
@@ -93,15 +93,15 @@ export default function Footer() {
         </div>
 
         {/* Contact Row */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-8 py-5 border-t border-slate-200">
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-8 py-5 border-t border-white/[0.06]">
           <a
             href="tel:+18888738319"
             className="flex items-center gap-3 group"
           >
-            <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-brand-700/20 text-brand-400 flex items-center justify-center">
               <PhoneIcon size={16} />
             </div>
-            <span className="text-sm text-ink-500 group-hover:text-brand-700 transition-colors">
+            <span className="text-sm text-white/50 group-hover:text-brand-400 transition-colors">
               (888) 873-8319
             </span>
           </a>
@@ -109,18 +109,18 @@ export default function Footer() {
             href="mailto:info@aliaun.com"
             className="flex items-center gap-3 group"
           >
-            <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-brand-700/20 text-brand-400 flex items-center justify-center">
               <EmailIcon size={16} />
             </div>
-            <span className="text-sm text-ink-500 group-hover:text-brand-700 transition-colors">
+            <span className="text-sm text-white/50 group-hover:text-brand-400 transition-colors">
               info@aliaun.com
             </span>
           </a>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-brand-700/20 text-brand-400 flex items-center justify-center">
               <GlobeIcon size={16} />
             </div>
-            <span className="text-sm text-ink-400">
+            <span className="text-sm text-white/40">
               Lahore, Pakistan
             </span>
           </div>
@@ -128,14 +128,14 @@ export default function Footer() {
 
         {/* Legal Disclaimers */}
         <div className="space-y-3 mb-8">
-          <p className="text-[10px] text-ink-400 leading-relaxed">
+          <p className="text-[10px] text-white/30 leading-relaxed">
             Ali Aun is not a lender. We connect consumers with
             third-party lending partners. Loan offers are subject to
             eligibility and lender approval. Checking your rate uses a soft
             inquiry and won&apos;t affect your credit score. Loan amounts, rates,
             and terms vary by lender and applicant qualifications.
           </p>
-          <p className="text-[10px] text-ink-400 leading-relaxed">
+          <p className="text-[10px] text-white/30 leading-relaxed">
             Ali Aun is a Utah-licensed lender under the Utah
             Department of Financial Institutions (NMLS #2242692). Personal loan
             offers provided to customers who originated via a paid Google or Bing
@@ -151,14 +151,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-ink-400">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/30">
           <p>&copy;2026 Ali Aun. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="text-brand-600 hover:text-brand-700 transition-colors">
+            <a href="#" className="text-brand-400 hover:text-brand-300 transition-colors">
               Terms of Use
             </a>
-            <span className="text-slate-300">|</span>
-            <a href="#" className="text-brand-600 hover:text-brand-700 transition-colors">
+            <span className="text-white/10">|</span>
+            <a href="#" className="text-brand-400 hover:text-brand-300 transition-colors">
               Privacy Policy
             </a>
           </div>

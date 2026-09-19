@@ -69,16 +69,16 @@ export default function SavingsCalculator() {
   const debtGradient =
     "linear-gradient(90deg, #174195 0%, #174195 " +
     ((debt - 5000) / 495000) * 100 +
-    "%, #dbe7fb " +
+    "%, #2a2d35 " +
     ((debt - 5000) / 495000) * 100 +
-    "%, #dbe7fb 100%)";
+    "%, #2a2d35 100%)";
 
   const aprGradient =
     "linear-gradient(90deg, #174195 0%, #174195 " +
     ((apr - 10) / 25) * 100 +
-    "%, #dbe7fb " +
+    "%, #2a2d35 " +
     ((apr - 10) / 25) * 100 +
-    "%, #dbe7fb 100%)";
+    "%, #2a2d35 100%)";
 
   return (
     <section id="savings" className="py-14 sm:py-20 bg-soft-sky" ref={sectionRef}>
@@ -87,7 +87,7 @@ export default function SavingsCalculator() {
           initial={{ y: 30, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-3"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-3"
         >
           Discover How Much <span className="text-brand-700">You Could Save.</span>
         </motion.h2>
@@ -95,7 +95,7 @@ export default function SavingsCalculator() {
           initial={{ y: 20, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-sm sm:text-base text-ink-600 text-center max-w-xl mx-auto mb-12"
+          className="text-sm sm:text-base text-white/60 text-center max-w-xl mx-auto mb-12"
         >
           Move the sliders to compare minimum payments with one fixed monthly
           payment and see your potential savings in real time.
@@ -110,10 +110,10 @@ export default function SavingsCalculator() {
             className="card p-6 sm:p-8 mb-6 lg:mb-0"
           >
             <div className="flex justify-between items-baseline mb-1">
-              <span className="text-xs font-medium text-ink-500">
+              <span className="text-xs font-medium text-white/50">
                 Total debt to consolidate
               </span>
-              <span className="text-xl font-bold text-brand-700 tabular-nums">
+              <span className="text-xl font-bold text-brand-400 tabular-nums">
                 ${debt.toLocaleString()}
               </span>
             </div>
@@ -127,16 +127,16 @@ export default function SavingsCalculator() {
               className="range w-full mb-2"
               style={{ background: debtGradient }}
             />
-            <div className="flex justify-between text-xs text-ink-400 mb-8">
+            <div className="flex justify-between text-xs text-white/40 mb-8">
               <span>$5,000</span>
               <span>$500,000</span>
             </div>
 
             <div className="flex justify-between items-baseline mb-1">
-              <span className="text-xs font-medium text-ink-500">
+              <span className="text-xs font-medium text-white/50">
                 Your current average APR
               </span>
-              <span className="text-xl font-bold text-brand-700 tabular-nums">
+              <span className="text-xl font-bold text-brand-400 tabular-nums">
                 {apr}%
               </span>
             </div>
@@ -150,19 +150,19 @@ export default function SavingsCalculator() {
               className="range w-full mb-2"
               style={{ background: aprGradient }}
             />
-            <div className="flex justify-between text-xs text-ink-400 mb-8">
+            <div className="flex justify-between text-xs text-white/40 mb-8">
               <span>10%</span>
               <span>35%</span>
             </div>
 
             {/* Warning Box */}
-            <div className="bg-danger-light rounded-xl p-4 flex gap-3">
-              <WarningIcon size={22} className="shrink-0 mt-0.5" />
+            <div className="bg-danger/10 rounded-xl p-4 flex gap-3">
+              <WarningIcon size={22} className="shrink-0 mt-0.5 text-danger" />
               <div>
                 <p className="text-sm font-bold text-danger">
                   The Hidden Cost of Minimum Payments
                 </p>
-                <p className="text-xs text-ink-600 mt-1 leading-relaxed">
+                <p className="text-xs text-white/60 mt-1 leading-relaxed">
                   Starting at <span className="font-bold text-danger">${savings.currentPayment.toLocaleString()}/month</span>, minimum payments
                   could leave you in debt for <span className="font-bold text-danger">{savings.currentYears} years</span> and
                   add <span className="font-bold text-danger">${savings.currentInterest.toLocaleString()}</span> in interest.

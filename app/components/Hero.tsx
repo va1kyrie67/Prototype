@@ -50,9 +50,9 @@ function QuoteForm() {
   const gradient =
     "linear-gradient(90deg, #174195 0%, #174195 " +
     ((amount - 5000) / 95000) * 100 +
-    "%, #e2e5ea " +
+    "%, #2a2d35 " +
     ((amount - 5000) / 95000) * 100 +
-    "%, #e2e5ea 100%)";
+    "%, #2a2d35 100%)";
 
   return (
     <motion.div
@@ -60,28 +60,28 @@ function QuoteForm() {
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1], delay: 2.6 }}
-      className="bg-[#f0f2f5] rounded-card p-7 sm:p-9 shadow-card"
+      className="bg-[#111318] rounded-card p-7 sm:p-9 shadow-card border border-white/[0.06]"
     >
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-lg font-bold text-ink">Start with Confidence</h3>
-        <span className="text-xs font-medium text-slate-400">
+        <h3 className="text-lg font-bold text-white">Start with Confidence</h3>
+        <span className="text-xs font-medium text-white/40">
           Step 1 of 4
         </span>
       </div>
-      <div className="h-1.5 bg-slate-300 rounded-full overflow-hidden mb-5">
+      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-5">
         <div className="h-full w-1/4 bg-brand-700 rounded-full" />
       </div>
 
-      <p className="text-lg font-extrabold text-ink leading-snug mb-2 whitespace-nowrap">
+      <p className="text-lg font-extrabold text-white leading-snug mb-2 whitespace-nowrap">
         How much are you looking to borrow?
       </p>
-      <p className="text-sm text-ink-500 mb-6">
+      <p className="text-sm text-white/50 mb-6">
         This helps us find the right options for you.
       </p>
 
       <div className="text-center mb-5">
-        <span className="text-[13px] font-medium text-ink-400 align-top relative top-[0.5em]">$</span>
-        <span className="text-[52px] font-extrabold text-brand-700 tabular-nums leading-none tracking-tight">
+        <span className="text-[13px] font-medium text-white/40 align-top relative top-[0.5em]">$</span>
+        <span className="text-[52px] font-extrabold text-brand-400 tabular-nums leading-none tracking-tight">
           {amount.toLocaleString()}
         </span>
       </div>
@@ -96,7 +96,7 @@ function QuoteForm() {
         className="range w-full mb-2"
         style={{ background: gradient }}
       />
-      <div className="flex justify-between text-xs text-ink-400 mb-6">
+      <div className="flex justify-between text-xs text-white/40 mb-6">
         <span>$5,000</span>
         <span>$100,000</span>
       </div>

@@ -52,6 +52,7 @@ export default function Timeline() {
 
     let ctx: gsap.Context;
     let scrollTriggerInstance: ScrollTrigger | null = null;
+    let smoothedProgress = 0;
 
     const initAnimation = () => {
       ctx = gsap.context(() => {
@@ -69,13 +70,11 @@ export default function Timeline() {
           gsap.set(card, { opacity: 0.4, y: 10 });
         });
 
-        // Calculate each circle's position as a fraction of total scroll
-        // (0 = first circle at left edge, 1 = last circle at right edge)
+        // Calculate each circle's center position as a fraction of track width
         const circlePositions = circles.map((c) => {
           const rect = c.getBoundingClientRect();
           const trackRect = track.getBoundingClientRect();
           const centerInTrack = rect.left - trackRect.left + rect.width / 2;
-          // Convert to fraction of the scrollable distance
           return centerInTrack / trackWidth;
         });
 
@@ -84,51 +83,53 @@ export default function Timeline() {
           start: "top top",
           end: () => `+=${totalScroll}`,
           pin: true,
-          scrub: 0.4,
+          scrub: 0.6,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            const progress = self.progress;
+            const rawProgress = self.progress;
+
+            // Lerp for smoother motion
+            smoothedProgress += (rawProgress - smoothedProgress) * 0.15;
+            const progress = smoothedProgress;
 
             // Move track horizontally
             gsap.set(track, { x: -progress * totalScroll });
 
-            // Fill progress line — use same progress value directly
+            // Fill progress line
             if (line) {
               gsap.set(line, { scaleX: progress, transformOrigin: "left center" });
             }
 
-            // The leading edge of the line is at `progress` fraction of the track
-            const lineLeading = progress;
-
             const stepCount = circles.length;
             for (let i = 0; i < stepCount; i++) {
               const circleFrac = circlePositions[i];
-              // How far past the line has reached this circle (0 = just reached, positive = passed)
-              const distPast = lineLeading - circleFrac;
-              // How far until the line reaches it (positive = not yet reached)
-              const distAhead = circleFrac - lineLeading;
 
-              // Circle is "active" when the line has just reached or is approaching it
-              // Use a smooth band around the line position
-              const activeBand = 0.08; // ~8% of total scroll for active zone
-              const inActiveZone = distPast > -activeBand && distPast < activeBand;
-              const isHighlighted = inActiveZone || (i === stepCount - 1 && progress >= circleFrac);
+              // How far the line has passed this circle (positive = passed, negative = not yet)
+              const distPast = progress - circleFrac;
 
-              // Smooth intensity: peaks when line is exactly at circle position
+              // Active zone: circle lights up as the line approaches and passes it
+              const activeBand = 0.06;
               const intensity = Math.max(0, 1 - Math.abs(distPast) / activeBand);
-              const smoothIntensity = intensity * intensity; // ease-in for cleaner feel
+              // Smooth cubic ease for cleaner feel
+              const smoothIntensity = intensity * intensity * intensity;
 
-              const maxScale = 1.35;
+              const isHighlighted = distPast > -activeBand && distPast < activeBand * 2;
+
+              // Scale: gentle pulse when active
+              const maxScale = 1.3;
               const minScale = 1.0;
               const scale = minScale + (maxScale - minScale) * smoothIntensity;
 
-              // Circle appearance
+              // Circle appearance — toggle active class for CSS transitions
+              if (isHighlighted) {
+                circles[i].classList.add("active");
+              } else {
+                circles[i].classList.remove("active");
+              }
+
               gsap.to(circles[i], {
                 scale: scale,
-                backgroundColor: isHighlighted ? "#174195" : "#fff",
-                color: isHighlighted ? "#fff" : "#174195",
-                borderColor: isHighlighted ? "#174195" : "#bdd4f7",
-                duration: 0.3,
+                duration: 0.4,
                 ease: "power2.out",
                 overwrite: "auto",
               });
@@ -142,8 +143,8 @@ export default function Timeline() {
                 }
                 gsap.to(glows[i], {
                   opacity: smoothIntensity,
-                  scale: 0.8 + smoothIntensity * 0.2,
-                  duration: 0.3,
+                  scale: 0.8 + smoothIntensity * 0.4,
+                  duration: 0.4,
                   ease: "power2.out",
                   overwrite: "auto",
                 });
@@ -154,7 +155,7 @@ export default function Timeline() {
                 gsap.to(cards[i], {
                   opacity: 0.4 + smoothIntensity * 0.6,
                   y: 10 - smoothIntensity * 10,
-                  duration: 0.3,
+                  duration: 0.4,
                   ease: "power2.out",
                   overwrite: "auto",
                 });
@@ -176,12 +177,12 @@ export default function Timeline() {
   }, []);
 
   return (
-    <section className="bg-white">
-      <div ref={wrapperRef} className="relative min-h-[85vh] overflow-hidden">
-        <div className="shell h-full flex flex-col justify-center">
+    <section className="bg-[#050505]">
+      <div ref={wrapperRef} className="relative min-h-[70vh] overflow-hidden">
+        <div className="shell h-full flex flex-col justify-center pt-20 pb-12">
           <h2
             ref={headingRef}
-            className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-12"
+            className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-10"
           >
             From Your First Call to <br className="hidden sm:block" />
             <span className="text-brand-700">Financial Freedom</span>
@@ -190,7 +191,7 @@ export default function Timeline() {
           {/* Horizontal Track */}
           <div className="relative">
             {/* Progress Line */}
-            <div className="absolute top-[22px] left-0 right-0 h-[2px] bg-slate-200">
+            <div className="absolute top-[22px] left-0 right-0 h-[2px] bg-white/10">
               <div
                 ref={lineRef}
                 className="h-full bg-brand-700 origin-left"
@@ -208,23 +209,26 @@ export default function Timeline() {
                   <div className="relative">
                     <div
                       ref={(el) => { if (el) glowRefs.current[i] = el; }}
-                      className="absolute inset-[-8px] rounded-full bg-brand-700/20 blur-md"
-                      style={{ opacity: 0 }}
+                      className="absolute inset-[-12px] rounded-full blur-lg"
+                      style={{
+                        opacity: 0,
+                        background: "radial-gradient(circle, rgba(23,65,149,0.5) 0%, rgba(23,65,149,0) 70%)",
+                      }}
                     />
                     <div
                       ref={(el) => { if (el) circleRefs.current[i] = el; }}
-                      className="w-11 h-11 rounded-full bg-white border-2 border-brand-700 text-brand-700 flex items-center justify-center text-sm font-bold relative z-10"
-                      style={{ willChange: "transform, background-color, color, border-color" }}
+                      className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold relative z-10 timeline-circle"
+                      style={{ willChange: "transform" }}
                     >
-                      {step.num}
+                      <span className="timeline-circle-num">{step.num}</span>
                     </div>
                   </div>
                   <div
                     ref={(el) => { if (el) cardsRef.current[i] = el; }}
                     className="mt-4 text-center"
                   >
-                    <h3 className="text-sm font-bold text-ink mb-1">{step.title}</h3>
-                    <p className="text-xs text-ink-600 leading-relaxed px-2">
+                    <h3 className="text-sm font-bold text-white mb-1">{step.title}</h3>
+                    <p className="text-xs text-white/60 leading-relaxed px-2">
                       {step.desc}
                     </p>
                   </div>
@@ -234,11 +238,11 @@ export default function Timeline() {
           </div>
 
           {/* Warning Banner */}
-          <div className="bg-danger-light rounded-xl p-4 max-w-[700px] mx-auto mt-10 text-left">
+          <div className="bg-danger/10 rounded-xl p-4 max-w-[700px] mx-auto mt-8 text-left">
             <p className="text-sm font-bold text-danger mb-1">
               Don&apos;t let minimum payments slow you down.
             </p>
-            <p className="text-xs text-ink-600 leading-relaxed">
+            <p className="text-xs text-white/60 leading-relaxed">
               Avoid decades of interest by replacing high-interest balances with
               one predictable payment.
             </p>

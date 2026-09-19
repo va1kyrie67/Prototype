@@ -119,12 +119,12 @@ export default function AboutBills() {
   }, []);
 
   return (
-    <section id="about" className="bg-white relative">
+    <section id="about" className="bg-[#050505] relative">
       <div ref={wrapperRef} className="relative h-screen overflow-hidden">
         <div className="shell h-full flex flex-col justify-center">
           <h2
             ref={headingRef}
-            className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center"
+            className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center"
           >
             More bills. <span className="text-brand-700">More stress.</span>
           </h2>
@@ -132,7 +132,7 @@ export default function AboutBills() {
           <div ref={trackRef} className="relative h-[350px] sm:h-[450px] mt-10 max-w-4xl mx-auto">
             {/* Watermark */}
             <div ref={watermarkRef} className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-[200px] font-extrabold text-brand-700 uppercase tracking-widest">
+              <span className="text-[200px] font-extrabold text-white/[0.03] uppercase tracking-widest">
                 PP
               </span>
             </div>
@@ -145,14 +145,14 @@ export default function AboutBills() {
                   ref={(el) => { if (el) cardRefs.current[i] = el; }}
                   className="absolute hidden sm:block"
                 >
-                  <div className="bg-white rounded-xl shadow-tilt px-4 py-3 min-w-[140px] border border-slate-100">
-                    <p className="text-[10px] text-ink-400 uppercase tracking-[0.12em] font-medium">
+                  <div className="bg-[#111318] rounded-xl shadow-tilt px-4 py-3 min-w-[140px] border border-white/[0.06]">
+                    <p className="text-[10px] text-white/40 uppercase tracking-[0.12em] font-medium">
                       {bill.title}
                     </p>
                     <p className="text-lg font-bold text-danger tabular-nums mt-0.5">
                       {bill.value}
                     </p>
-                    <p className="text-xs text-ink-500 mt-0.5">{bill.type}</p>
+                    <p className="text-xs text-white/50 mt-0.5">{bill.type}</p>
                   </div>
                 </div>
               ))}
@@ -163,15 +163,15 @@ export default function AboutBills() {
               {bills.map((bill, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-xl shadow-card px-4 py-3 border border-slate-100"
+                  className="bg-[#111318] rounded-xl shadow-card px-4 py-3 border border-white/[0.06]"
                 >
-                  <p className="text-[10px] text-ink-400 uppercase tracking-[0.12em] font-medium">
+                  <p className="text-[10px] text-white/40 uppercase tracking-[0.12em] font-medium">
                     {bill.title}
                   </p>
                   <p className="text-lg font-bold text-danger tabular-nums">
                     {bill.value}
                   </p>
-                  <p className="text-xs text-ink-500">{bill.type}</p>
+                  <p className="text-xs text-white/50">{bill.type}</p>
                 </div>
               ))}
             </div>
