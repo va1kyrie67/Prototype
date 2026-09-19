@@ -11,12 +11,12 @@ export default function CursorGlow() {
     if (!el) return;
 
     const xTo = gsap.quickTo(el, "x", {
-      duration: 0.6,
-      ease: "power3.out",
+      duration: 0.4,
+      ease: "power2.out",
     });
     const yTo = gsap.quickTo(el, "y", {
-      duration: 0.6,
-      ease: "power3.out",
+      duration: 0.4,
+      ease: "power2.out",
     });
 
     const handleMove = (e: MouseEvent) => {

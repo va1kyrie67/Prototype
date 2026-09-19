@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { PhoneIcon, EmailIcon, GlobeIcon } from "./Icons";
 
 const productLinks = [
@@ -46,7 +47,9 @@ export default function Footer() {
         <div className="lg:grid lg:grid-cols-[352px_repeat(3,minmax(0,1fr))] gap-10 mb-12">
           {/* Logo & Description */}
           <div className="mb-8 lg:mb-0">
-            <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto mb-4" />
+            <Link href="/" className="cursor-pointer inline-block">
+              <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto" />
+            </Link>
             <p className="text-sm text-ink-500 leading-relaxed max-w-xs">
               Ali Aun is a marketplace connecting borrowers with
               a curated network of trusted lending partners. We are not a
