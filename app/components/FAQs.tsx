@@ -74,7 +74,7 @@ export default function FAQs() {
           initial={{ y: 30, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-3"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-3"
         >
           Get Clarity Before <span className="text-brand-700">You Commit.</span>
         </motion.h2>
@@ -82,7 +82,7 @@ export default function FAQs() {
           initial={{ y: 20, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-sm sm:text-base text-ink-600 text-center max-w-xl mx-auto mb-12"
+          className="text-sm sm:text-base text-white/60 text-center max-w-xl mx-auto mb-12"
         >
           Explore your options, understand the costs, and see if consolidation
           is right for you without sharing your phone number.
@@ -94,14 +94,17 @@ export default function FAQs() {
             initial={{ y: 30, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="bg-white rounded-card p-5 shadow-card mb-6 lg:mb-0"
+            className="bg-[#111318] rounded-card p-5 shadow-card mb-6 lg:mb-0"
           >
-            <div className="bg-[#f7fafe] rounded-xl p-4 mb-4">
+            <div className="bg-[#0a0a12] rounded-xl p-4 mb-4">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-brand-700 flex items-center justify-center shrink-0">
-                  <span className="text-white text-xs font-bold">P</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8" cy="16" r="3" fill="white" />
+                    <rect x="13" y="3" width="3.5" height="18" rx="1.75" transform="rotate(-30 13 3)" fill="white" />
+                  </svg>
                 </div>
-                <p className="text-sm text-ink leading-relaxed">
+                <p className="text-sm text-white/80 leading-relaxed">
                   Hi! I&apos;m the Ali Aun copilot. Ask me anything about
                   consolidating debt, rates, or whether this is even right for
                   you. I&apos;ll be straight with you.
@@ -120,7 +123,7 @@ export default function FAQs() {
                     className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                       msg.role === "user"
                         ? "bg-brand-700 text-white"
-                        : "bg-[#f7fafe] text-ink"
+                        : "bg-[#0a0a12] text-white/80"
                     }`}
                   >
                     {msg.text}
@@ -135,7 +138,7 @@ export default function FAQs() {
                 <button
                   key={qr}
                   onClick={() => handleChipClick(qr)}
-                  className="text-xs font-medium text-brand-700 border border-brand-200 rounded-full px-3 py-1.5 hover:bg-brand-50 transition-colors duration-300 ease-out"
+                  className="text-xs font-medium text-brand-400 border border-white/10 rounded-full px-3 py-1.5 hover:bg-white/5 transition-colors duration-300 ease-out"
                 >
                   {qr}
                 </button>
@@ -151,7 +154,7 @@ export default function FAQs() {
                   if (e.key === "Enter") handleSend(inputValue);
                 }}
                 placeholder="Ask about rates, fees, your situation..."
-                className="flex-1 text-sm px-4 py-2.5 rounded-full border border-slate-200 bg-surface-muted focus:outline-none focus:border-brand-700 transition-colors"
+                className="flex-1 text-sm px-4 py-2.5 rounded-full border border-white/10 bg-[#0a0a12] text-white/80 focus:outline-none focus:border-brand-700 transition-colors placeholder:text-white/30"
               />
               <button
                 onClick={() => handleSend(inputValue)}
@@ -169,17 +172,17 @@ export default function FAQs() {
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            <p className="text-xs font-semibold text-ink-500 uppercase tracking-[0.16em] mb-4">
+            <p className="text-xs font-semibold text-white/50 uppercase tracking-[0.16em] mb-4">
               Quick answers
             </p>
-            <div className="bg-white rounded-card shadow-card divide-y divide-slate-100 overflow-hidden">
+            <div className="bg-[#111318] rounded-card shadow-card divide-y divide-white/[0.06] overflow-hidden">
               {faqData.map((faq, i) => (
                 <div key={i}>
                   <button
                     onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
                   >
-                    <span className="text-sm font-semibold text-ink pr-4">
+                    <span className="text-sm font-semibold text-white pr-4">
                       {faq.q}
                     </span>
                     {openIndex === i ? (
@@ -193,7 +196,7 @@ export default function FAQs() {
                     data-open={openIndex === i ? "true" : "false"}
                   >
                     <div>
-                      <p className="px-5 pb-4 text-sm text-ink-600 leading-relaxed">
+                      <p className="px-5 pb-4 text-sm text-white/60 leading-relaxed">
                         {faq.a}
                       </p>
                     </div>

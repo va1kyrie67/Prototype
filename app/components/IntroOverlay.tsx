@@ -42,11 +42,10 @@ export default function IntroOverlay() {
         );
     }, containerRef);
 
-    const fallback = setTimeout(() => setVisible(false), 1000);
+    const fallback = setTimeout(() => setVisible(false), 850);
 
     return () => {
       clearTimeout(fallback);
-      ctx.revert();
     };
   }, []);
 
@@ -58,8 +57,16 @@ export default function IntroOverlay() {
       <div ref={rightRef} className="intro-panel-right" />
       <div ref={contentRef} className="intro-content">
         <span
-          className="font-extrabold uppercase tracking-[0.04em] text-white"
-          style={{ fontSize: "10vw" }}
+          className="font-extrabold uppercase tracking-[0.04em]"
+          style={{
+            fontSize: "10vw",
+            background: "linear-gradient(90deg, #fff 0%, #93b4e8 25%, #60a5fa 50%, #93b4e8 75%, #fff 100%)",
+            backgroundSize: "200% auto",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            animation: "introShimmer 2s linear infinite",
+          }}
         >
           ALI AUN
         </span>

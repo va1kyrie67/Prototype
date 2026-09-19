@@ -45,7 +45,7 @@ export default function Consultants() {
           initial={{ y: 30, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-12"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-12"
         >
           10 Minutes That Could{" "}
           <span className="text-brand-700">Change Your Finances.</span>
@@ -59,17 +59,17 @@ export default function Consultants() {
               initial={{ y: 30, opacity: 0 }}
               animate={inView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-              className="bg-white rounded-card p-7 pt-8 text-center shadow-card border border-slate-100 group flex flex-col items-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-cardHover"
+              className="bg-[#111318] rounded-card p-7 pt-8 text-center shadow-card border border-white/[0.06] group flex flex-col items-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-cardHover"
             >
-              <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-2 ring-brand-100 group-hover:scale-110 transition-transform duration-500 bg-slate-100">
+              <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-2 ring-brand-700/30 group-hover:scale-110 transition-transform duration-500 bg-[#0a0a12]">
                 <img
                   src={c.image}
                   alt={c.name}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-base font-bold text-ink">{c.name}</h3>
-              <p className="text-sm text-ink-500 mt-1">{c.role}</p>
+              <h3 className="text-base font-bold text-white">{c.name}</h3>
+              <p className="text-sm text-white/50 mt-1">{c.role}</p>
               <div className="flex items-center justify-center gap-1.5 mt-2">
                 <StarIcon size={14} className="text-brand-700 shrink-0" />
                 <p className="text-[13px] text-brand-700 font-medium">{c.review}</p>
@@ -92,9 +92,9 @@ export default function Consultants() {
             initial={{ y: 30, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="bg-white rounded-card p-6 shadow-card mb-6 lg:mb-0"
+            className="bg-[#111318] rounded-card p-6 shadow-card mb-6 lg:mb-0"
           >
-            <h3 className="text-base font-bold text-ink mb-4">
+            <h3 className="text-base font-bold text-white mb-4">
               What the call is actually like
             </h3>
             <div className="space-y-4">
@@ -113,16 +113,16 @@ export default function Consultants() {
                   <span className="text-xs font-bold text-brand-700 w-14 shrink-0 pt-0.5">
                     {item.time}
                   </span>
-                  <p className="text-sm text-ink-600 leading-relaxed">
+                  <p className="text-sm text-white/60 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-5 p-4 bg-brand-50 rounded-xl">
-              <p className="text-xs text-ink-600 leading-relaxed">
-                <strong className="text-ink">Our promise:</strong> no pressure,
+            <div className="mt-5 p-4 bg-brand-700/10 rounded-xl">
+              <p className="text-xs text-white/60 leading-relaxed">
+                <strong className="text-white">Our promise:</strong> no pressure,
                 no obligation, and if we&apos;re not the right fit, we&apos;ll
                 tell you — and point you somewhere that is.
               </p>

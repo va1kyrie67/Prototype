@@ -55,7 +55,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3"
     >
       <div className="shell">
-        <nav className="flex h-[72px] items-center justify-between rounded-full bg-white px-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
+        <nav className="flex h-[58px] items-center justify-between rounded-full bg-white/85 backdrop-blur-xl px-5 shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-white/20 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Ali Aun" className="h-32 w-auto" />

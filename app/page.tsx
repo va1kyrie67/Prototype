@@ -2,6 +2,7 @@
 
 import IntroOverlay from "./components/IntroOverlay";
 import CursorGlow from "./components/CursorGlow";
+import ParticleField from "./components/ParticleField";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import LenderMarquee from "./components/LenderMarquee";
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <>
       <IntroOverlay />
+      <ParticleField />
       <CursorGlow />
       <Navbar />
       <main>

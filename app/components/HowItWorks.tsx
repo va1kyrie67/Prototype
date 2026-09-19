@@ -26,14 +26,14 @@ export default function HowItWorks() {
   const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-14 sm:py-20" style={{ background: "linear-gradient(90deg, #eaf1fb 0%, #e2e8f2 50%, #eaf1fb 100%)" }}>
+    <section ref={sectionRef} id="how-it-works" className="py-14 sm:py-20 bg-[#050505]">
       <div className="shell">
         <motion.h2
           ref={headingRef}
           initial={{ y: 30, opacity: 0 }}
           animate={headingInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-12"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-12"
         >
           Three Steps To <br className="hidden sm:block" />
           <span className="text-brand-700">Financial Freedom.</span>
@@ -52,9 +52,9 @@ export default function HowItWorks() {
                 <span className="step-dot flex items-center justify-center w-10 h-10 rounded-full bg-brand-700 text-white text-sm font-bold shrink-0 transition-transform duration-300 group-hover:scale-110">
                   {i + 1}
                 </span>
-                <h3 className="text-base font-bold text-ink leading-snug">{step.title}</h3>
+                <h3 className="text-base font-bold text-white leading-snug">{step.title}</h3>
               </div>
-              <p className="text-sm text-ink-600 leading-relaxed">{step.desc}</p>
+              <p className="text-sm text-white/60 leading-relaxed">{step.desc}</p>
             </motion.div>
           ))}
         </div>

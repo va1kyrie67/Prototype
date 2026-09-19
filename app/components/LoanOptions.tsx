@@ -22,7 +22,7 @@ export default function LoanOptions() {
           initial={{ y: 30, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-ink text-center mb-12"
+          className="text-[30px] sm:text-[42px] font-extrabold tracking-[-0.02em] text-white text-center mb-12"
         >
           Sample Personal <span className="text-brand-700">Loan Offers.</span>
         </motion.h2>
@@ -41,33 +41,33 @@ export default function LoanOptions() {
                 <img
                   src={loan.logo}
                   alt={`${loan.name} logo`}
-                  className="h-[28px] w-auto object-contain"
+                  className="h-[28px] w-auto object-contain brightness-0 invert"
                 />
               </div>
 
               {/* 3-Column Data Grid */}
               <dl className="mt-6 grid grid-cols-3 gap-3">
                 <div>
-                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/40">
                     Amount
                   </dt>
-                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-ink tabular-nums">
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-white tabular-nums">
                     {loan.amount}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/40">
                     APR
                   </dt>
-                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-brand-700 tabular-nums">
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-brand-400 tabular-nums">
                     {loan.apr}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink-400">
+                  <dt className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/40">
                     Term
                   </dt>
-                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-ink tabular-nums">
+                  <dd className="mt-[6px] text-[15px] font-bold tracking-[-0.01em] text-white tabular-nums">
                     {loan.term}
                   </dd>
                 </div>
@@ -76,7 +76,7 @@ export default function LoanOptions() {
               {/* View Offer */}
               <a
                 href="#quote"
-                className="mt-auto border-t border-slate-100 pt-[18px] text-center text-[12.5px] font-bold text-brand-700 transition-colors hover:text-brand-500"
+                className="mt-auto border-t border-white/[0.06] pt-[18px] text-center text-[12.5px] font-bold text-brand-400 transition-colors hover:text-brand-300"
               >
                 View Offer
               </a>
